@@ -55,3 +55,14 @@ class SerieRegistrada(Base):
     carga = Column(Float, nullable=True)
     repeticoes = Column(Integer)
     data_registro = Column(DateTime(timezone=True), server_default=func.now())
+
+    # --- TABELA DE ALIMENTOS ---
+class Alimento(Base):
+    __tablename__ = "alimentos"
+
+    id = Column(Integer, primary_key=True, index=True)
+    nome = Column(String, index=True)
+    calorias = Column(Float)
+    proteina = Column(Float)
+    carboidrato = Column(Float)
+    gordura = Column(Float)
