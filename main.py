@@ -544,9 +544,13 @@ def deletar_personalizado(item_id: int, db: Session = Depends(get_db)): item = d
 @app.post("/treinos")
 def criar_treino(treino: dict, db: Session = Depends(get_db)):
     
-    # === TRAVA DE SEGURANÇA DE ELITE ===
+    # === TRAVA DE SEGURANÇA===
     from sqlalchemy import text
-    db.execute(text("INSERT OR IGNORE INTO usuarios (id, nome) VALUES (1, 'Mestre Gorila')"))
+    usuario_mestre = db.query(models.Usuario).filter(models.Usuario.id == 1).first()
+    if not usuario_mestre:
+        novo_usuario = models.Usuario(id=1, nome="Mestre Gorila")
+        db.add(novo_usuario)
+        db.commit()
     db.commit()
     # ===================================
 
